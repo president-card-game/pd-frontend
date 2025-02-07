@@ -1,0 +1,50 @@
+# Ignore all node_modules in the monorepo
+**/node_modules
+!node_modules/.prisma   # Allow specific folder if needed for Prisma or similar tools
+
+# Ignore Nx cache and build outputs
+**/dist
+**/build
+**/.nx-cache
+**/.angular/cache
+
+# Cypress-related exclusions
+cypress/videos
+cypress/screenshots
+cypress/downloads
+
+# Jest-related exclusions
+coverage
+jest-cache
+jest-results
+
+# Logs and temporary files
+**/*.log
+**/tmp
+**/.temp
+*.pid
+*.seed
+
+# Environment and configuration files (customize as needed)
+.env
+.env.local
+.env.test
+.env.production
+**/*.env
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Git-related files
+.git
+.gitignore
+
+# Editor and IDE files
+.idea
+.vscode
+*.swp
+
+# Docker-related files (optional if needed)
+.dockerignore
+Dockerfile*

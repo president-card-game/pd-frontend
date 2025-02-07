@@ -1,0 +1,18 @@
+{
+  "singleQuote": true,
+  "printWidth": 130,
+  "overrides": [
+    {
+      "files": "*.scss",
+      "options": {
+        "printWidth": 200
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ]
+}
