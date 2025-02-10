@@ -1,3 +1,10 @@
 import { Route } from '@angular/router';
 
-export const APP_ROUTES: Route[] = [];
+import { ROOMS_ROUTES } from '@domain';
+
+export const APP_ROUTES: Route[] = [
+  {
+    path: '',
+    children: ROOMS_ROUTES,
+  },
+];

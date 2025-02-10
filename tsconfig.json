@@ -27,7 +27,8 @@
       "@shared": ["src/app/shared/index.ts"],
       "@widgets": ["src/app/widgets/index.ts"],
       "@models": ["src/app/shared/models/index.ts"]
-    }
+    },
+    "resolveJsonModule": true
   },
   "files": [],
   "include": [],

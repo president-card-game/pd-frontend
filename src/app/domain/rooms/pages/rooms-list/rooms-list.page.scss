@@ -1,0 +1,91 @@
+@use 'mixins' as *;
+
+:host {
+  height: 100%;
+
+  h1 {
+    align-self: center;
+    text-align: center;
+    color: var(--white);
+    padding-top: 20px;
+  }
+
+  .primary-button {
+    width: fit-content;
+    text-decoration: none;
+    margin-left: 20px;
+
+    span {
+      margin-right: 5px;
+    }
+  }
+
+  .rooms {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 250px));
+    grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    padding: 30px 20px;
+
+    .room {
+      max-width: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--black);
+      border-radius: 10px;
+      @include box-shadow(rgba(0, 0, 0, 0.41));
+      background-color: var(--white);
+      padding: 10px 20px;
+
+      .name {
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      & > div {
+        @include flex-center(row);
+        justify-content: space-between;
+        margin-top: 10px;
+        flex-wrap: wrap;
+
+        @media screen and (max-width: 210px) {
+          justify-content: center;
+
+          a {
+            margin-left: 0;
+          }
+        }
+
+        .users-in-room {
+          display: flex;
+          align-items: center;
+          font-size: 20px;
+          font-weight: 500;
+
+          span {
+            margin-right: 5px;
+          }
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .no-rooms-created {
+    display: flex;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+
+    span {
+      margin: auto;
+    }
+  }
+}

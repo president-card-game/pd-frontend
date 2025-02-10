@@ -21,7 +21,7 @@ export function loadDefaultLanguage() {
 export const TRANSLOCO_OPTIONS: TranslocoOptions = {
   config: {
     availableLangs: [ELanguage.PT, ELanguage.EN, ELanguage.ES],
-    defaultLang: ELanguage.PT,
+    defaultLang: ELanguage.EN,
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },

@@ -1,0 +1,19 @@
+{
+  "criarSala": "Create",
+  "salasCriadas": "Created rooms",
+  "usuariosNaSala": "Users in room",
+  "sair": "Leave",
+  "voce": "You",
+  "salaNaoExiste": "This room does not exist",
+  "voltarPaginaInicial": "Back to the initial page",
+  "salas": "Rooms",
+  "voltar": "Back",
+  "entrar": "Enter",
+  "nenhumaSalaCriada": "No rooms created!",
+  "esperandoJogadores": "Waiting for players...",
+  "jogadoresProntos": "Players ready!",
+  "marcarComoPronto": "Mark as ready",
+  "desmarcarComoPronto": "Unmark as ready",
+  "comecarJogo": "Start game",
+  "nomeDaSala": "Room name"
+}
