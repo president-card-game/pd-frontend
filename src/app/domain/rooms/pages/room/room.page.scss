@@ -1,0 +1,118 @@
+@use 'mixins' as *;
+
+:host {
+  height: 100%;
+  @include flex-center(row);
+  justify-content: center;
+
+  .room {
+    width: 100%;
+    padding: 0 20px;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (max-width: 489px) {
+      align-items: center;
+
+      div.room-content {
+        justify-content: center;
+
+        .users {
+          margin-top: 20px;
+        }
+      }
+    }
+
+    .room-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      align-self: center;
+      padding-top: 20px;
+    }
+
+    .leave-button {
+      width: fit-content;
+      margin: 20px 0;
+    }
+
+    .room-content {
+      @include flex-center(row);
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      flex-wrap: wrap-reverse;
+
+      .users {
+        min-width: 200px;
+        width: 30%;
+        max-width: 300px;
+        border: 2px solid var(--white);
+        background-color: var(--yellow);
+        border-radius: 10px;
+        @include flex-center(column);
+        @include box-shadow(rgba(0, 0, 0, 0.41));
+        justify-content: flex-start;
+
+        & > span {
+          width: 100%;
+          background-color: var(--white);
+          color: var(--black);
+          border-radius: 8px 8px 0 0;
+          text-align: center;
+          padding: 10px 0;
+          font-weight: 600;
+          font-size: 18px;
+        }
+
+        .user {
+          width: 100%;
+          padding: 10px 0;
+          @include flex-center(row);
+          color: var(--black);
+          margin: 10px 0;
+
+          span {
+            color: var(--white);
+          }
+
+          .name {
+            font-weight: 500;
+            margin: 0 10px;
+            line-break: anywhere;
+          }
+
+          .host-icon {
+            color: var(--white);
+          }
+        }
+      }
+
+      .primary-button {
+        width: 100%;
+        max-width: 250px;
+
+        &.start-game:disabled {
+          background-color: var(--grey);
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  .room-not-exists {
+    @include flex-center(column);
+    justify-content: center;
+
+    span {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    button {
+      margin-top: 10px;
+    }
+  }
+}

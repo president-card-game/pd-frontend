@@ -1,0 +1,31 @@
+<ng-container *transloco="let t">
+  <h1>{{ t('salas') }}</h1>
+
+  <a routerLink="/" class="primary-button">
+    <span class="material-symbols-outlined"> arrow_back </span>
+    {{ t('voltar') }}
+  </a>
+
+  <section class="rooms">
+    @for (room of roomsService.rooms(); track $index) {
+      <div class="room">
+        <span class="name">{{ room.name }}</span>
+
+        <div>
+          <span class="users-in-room">
+            <span class="material-symbols-outlined"> account_circle </span>
+            {{ room.users.length }}
+          </span>
+
+          <a [routerLink]="['/room/', room.id]" class="primary-button">{{ t('entrar') }}</a>
+        </div>
+      </div>
+    }
+  </section>
+
+  @if (roomsService.rooms().length === 0) {
+    <div class="no-rooms-created">
+      <span>{{ t('nenhumaSalaCriada') }}</span>
+    </div>
+  }
+</ng-container>

@@ -1,0 +1,19 @@
+{
+  "criarSala": "Crear",
+  "salasCriadas": "Salas creadas",
+  "usuariosNaSala": "Usuarios en la sala",
+  "sair": "Salir",
+  "voce": "Tú",
+  "salaNaoExiste": "Esta sala no existe",
+  "voltarPaginaInicial": "Volver a la página principal",
+  "salas": "Salas",
+  "voltar": "Volver",
+  "entrar": "Entrar",
+  "nenhumaSalaCriada": "¡No hay salas creadas!",
+  "esperandoJogadores": "Esperando a los jugadores...",
+  "jogadoresProntos": "Jugadores listos!",
+  "marcarComoPronto": "Marcar como listo",
+  "desmarcarComoPronto": "Desmarcar como listo",
+  "comecarJogo": "Comenzar el juego",
+  "nomeDaSala": "Nombre de la sala"
+}

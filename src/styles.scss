@@ -1,5 +1,5 @@
-@use './scss/mixins' as *;
-@use './scss/variables' as *;
+@use 'mixins' as *;
+@use 'variables' as *;
 
 * {
   bottom: 0;
@@ -16,4 +16,43 @@ html,
 body {
   @include full-size();
   font-family: 'Roboto', serif;
+  background-color: var(--green);
+
+  input,
+  button,
+  a {
+    &:focus {
+      outline: 2px solid var(--white);
+      outline-offset: 2px;
+    }
+  }
+
+  .primary-button {
+    border-radius: 10px;
+    color: var(--white);
+    background-color: var(--yellow);
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+
+    &,
+    span {
+      @include flex-center(row);
+    }
+
+    span {
+      margin-right: 10px;
+    }
+  }
+
+  input,
+  button,
+  a {
+    &:focus {
+      outline: 2px solid var(--white);
+      outline-offset: 2px;
+    }
+  }
 }

@@ -1,0 +1,81 @@
+@let room = roomsService.currentRoom();
+@let isReady = roomsService.me()?.isReady;
+
+<ng-container *transloco="let t">
+  @if (room) {
+    <section class="room">
+      <span class="room-name">{{ room.name }}</span>
+      <button class="primary-button leave-button" (click)="leaveRoom()" data-testid="leave-button">
+        <span class="material-symbols-outlined">
+            arrow_back
+          </span>
+        {{ t('sair') }}
+      </button>
+
+      <div class="room-content">
+        <aside class="users">        
+          <span>{{ t('usuariosNaSala') }}</span>
+        
+          @for (user of room.users; track user.id) {
+              @let isMe = user.id === roomsService.me()?.id;
+
+              <div class="user">
+                <span class="material-symbols-outlined">
+                  account_circle
+                </span>
+
+                <span class="name">{{ isMe ? t('voce') : user.name }}</span>
+                
+                @if (user.isHost) {
+                  <span class="material-symbols-outlined host-icon">
+                    crown
+                  </span>
+                }
+
+                @if (!user.isHost && user.isReady) {
+                  <span class="material-symbols-outlined" data-testid="ready-icon">
+                    check_circle
+                  </span>
+                }
+              </div>
+            }
+      </aside>
+
+      @if (roomsService.me()?.isHost) {
+        <button class="primary-button start-game" [disabled]="!allPlayersReady()" data-testid="start-game-button">
+          <span class="material-symbols-outlined">
+            start
+          </span>
+          {{ allPlayersReady() ? t('comecarJogo') : t('esperandoJogadores') }}
+        </button>
+      } @else {
+        <button class="primary-button" (click)="roomsService.toggleIsReady()" data-testid="toggle-ready-button">
+          <span class="material-symbols-outlined">
+            {{ 
+                isReady ? 
+                'close' : 
+                'check_circle'
+            }}
+          </span>
+            {{ 
+                isReady ? 
+                t('desmarcarComoPronto') : 
+                t('marcarComoPronto')
+            }}
+        </button>
+      }
+      </div>
+    </section>
+
+  } @else {
+    <section class="room-not-exists">
+      <span>{{ t('salaNaoExiste') }}</span>
+      <button class="primary-button" (click)="backToInitialPage()">
+        <span class="material-symbols-outlined">
+          arrow_back
+        </span>
+        {{ t('voltarPaginaInicial') }}
+      </button>
+    </section>
+  }
+</ng-container>

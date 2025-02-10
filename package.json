@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve",
+    "start:dev": "nx serve --configuration=development",
+    "start": "nx serve --configuration=production",
     "build": "nx build",
     "test": "nx test",
     "prepare": "husky",
