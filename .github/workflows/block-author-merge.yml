@@ -1,0 +1,17 @@
+name: Block PR Author Merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  prevent_author_merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if author is merging
+        run: |
+          PR_AUTHOR=$(jq -r ".pull_request.user.login" "$GITHUB_EVENT_PATH")
+          if [ "$PR_AUTHOR" == "$GITHUB_ACTOR" ]; then
+            echo "O autor do PR não pode fazer merge!"
+            exit 1
+          fi
