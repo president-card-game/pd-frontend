@@ -16,7 +16,8 @@ export default [
   ...nx.configs['flat/angular'],
   ...nx.configs['flat/angular-template'],
   {
-    files: ['**/*.ts'],
+    files: ['src/**/*.ts'],
+    ignores: ['**/index.ts', '**/*spec.ts', '**/environment.ts', '**/environment.*.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
