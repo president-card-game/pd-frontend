@@ -1,0 +1,19 @@
+$card-font-family: 'Space Grotesk', 'Roboto', sans-serif;
+
+$colors: (
+  primary: #005b4a,
+  secondary: #b84443,
+  black-01: #000000,
+  black-02: #1e1b19,
+  white-01: #ffffff,
+  white-02: #eeeeee,
+  gray-01: #d2d2d2,
+);
+
+:root {
+  --card-font-family: #{$card-font-family};
+
+  @each $name, $color in $colors {
+    --#{$name}: #{$color};
+  }
+}
