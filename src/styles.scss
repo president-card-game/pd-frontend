@@ -1,4 +1,5 @@
-@use 'mixins' as *;
+@use './scss/mixins' as *;
+@use './scss/variables' as *;
 
 * {
   bottom: 0;
