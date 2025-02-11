@@ -25,7 +25,8 @@
       "@core": ["src/app/core/index.ts"],
       "@domain": ["src/app/domain/index.ts"],
       "@shared": ["src/app/shared/index.ts"],
-      "@widgets": ["src/app/widgets/index.ts"]
+      "@widgets": ["src/app/widgets/index.ts"],
+      "@models": ["src/app/shared/models/index.ts"]
     }
   },
   "files": [],
