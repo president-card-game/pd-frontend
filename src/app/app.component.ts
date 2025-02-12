@@ -10,16 +10,8 @@ import { DeckCardComponent } from './widgets/components/deck-card/deck-card.comp
   template: `<router-outlet />
     <!-- <div class="container"><pd-deck-card *ngFor="let card of cards" [card]="card"></pd-deck-card></div> -->
     <section>
-      @for (card of cardsInHand; track card.id; let index = $index) {
-        <pd-deck-card [card]="card" [class.exit]="canRemoveCard" [ngStyle]="getCardStyle(index)"></pd-deck-card>
-      }
-    </section>
-
-    <p
-      style="position: absolute;color: #fff;top: 50%; left: 50%; transform: translate(-50%, -50%); height: 20px; font-weight: 600;font-size: 20px;"
-    >
-      {{ cardsInHand.length }}
-    </p>`,
+      <pd-deck-card *ngFor="let card of cardsInHand" [card]="card" [class.exit]="canRemoveCard"></pd-deck-card>
+    </section> `,
   styles: [
     `
       .container {
@@ -39,14 +31,37 @@ import { DeckCardComponent } from './widgets/components/deck-card/deck-card.comp
         background-color: var(--primary);
         height: 100vh;
         overflow-x: auto;
+        transform-origin: center 120%;
         padding-top: 10px;
 
         pd-deck-card {
+          
+          $max-index: var(--card-in-hand); 
+          $y-offset-bottom: 25%; 
+          $y-offset-middle: 0; 
+          $rotation-start: -15deg; 
+          $rotation-end: 15deg; 
+
+          @for $index from 1 through unquote($max-index)  {
+            $normalized-index: ($index - 1) / ($max-index - 1);
+            $distance-from-center: abs($normalized-index - 0.5);
+            $norm: $distance-from-center / 0.5;
+
+
+            $diff-y: $y-offset-bottom - $y-offset-middle; 
+            $y-offset: $y-offset_middle + ($diff-y * $norm);
+            $rotation: $rotation-start + (($rotation-end - $rotation-start) * $normalized-index);
+
+            &:nth-child(#{$index}) {
+              transform: translate(-50%, #{$y-offset}) rotate(#{$rotation});
+            }
+          }
+
           width: 100px;
           margin-left: -70px;
           transition: transform 0.3s ease-in-out;
           position: relative;
-          left: 75px;
+          left: 35px;
           animation: slide 1s;
 
           @keyframes slide {
@@ -74,8 +89,8 @@ import { DeckCardComponent } from './widgets/components/deck-card/deck-card.comp
             transform: rotate(1deg);
           }
         }
-      }
-    `,
+      }`
+    ,
   ],
 })
 export class AppComponent implements OnInit {
@@ -110,13 +125,14 @@ export class AppComponent implements OnInit {
 
   private dealHand() {
     this.currentHand = this.cards.slice(0, this.initialHandSize);
-    // this.cardsInHand = this.currentHand.slice(this.handIndex, this.handIndex + this.maxCardsInHand);
+    this.cardsInHand = this.currentHand.slice(this.handIndex, this.handIndex + this.maxCardsInHand);
   }
 
   private drawCard() {
     this.handIndex += this.maxCardsInHand;
     const validHand = this.currentHand.slice(this.handIndex, this.handIndex + this.maxCardsInHand);
     this.cardsInHand = validHand.length ? validHand : this.resetHand();
+    document.documentElement.style.setProperty('--card-in-hand', `${this.cardsInHand.length}`);
   }
 
   private resetHand() {

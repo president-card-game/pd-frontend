@@ -12,6 +12,7 @@ $colors: (
 
 :root {
   --card-font-family: #{$card-font-family};
+  --cards-in-hand: 0;
 
   @each $name, $color in $colors {
     --#{$name}: #{$color};
