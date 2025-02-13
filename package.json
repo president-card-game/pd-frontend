@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "nx serve --configuration=development",
-    "start": "nx serve --configuration=production",
+    "start:prod": "nx serve --configuration=production",
+    "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
     "prepare": "husky",
