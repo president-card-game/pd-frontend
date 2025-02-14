@@ -48,5 +48,6 @@ jobs:
             -Dsonar.projectKey=pd-frontend
             -Dsonar.organization=president-card-game
             -Dsonar.sources=src
+            -Dsonar.qualitygate.wait=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
