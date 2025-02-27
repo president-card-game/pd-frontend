@@ -15,12 +15,13 @@ html[lang] body {
 html,
 body {
   @include full-size();
-  font-family: 'Roboto', serif;
-  background-color: var(--green);
+  font-family: var(--general-font);
+  background-color: var(--primary);
 
   input,
   button,
   a {
+    font-family: var(--general-font);
     &:focus {
       outline: 2px solid var(--white);
       outline-offset: 2px;
@@ -47,12 +48,26 @@ body {
     }
   }
 
-  input,
-  button,
-  a {
-    &:focus {
-      outline: 2px solid var(--white);
-      outline-offset: 2px;
+  button {
+    border-radius: 6px;
+    padding: 5px;
+    font-weight: 500;
+    border: 1px solid;
+    border-color: currentColor;
+    cursor: pointer;
+    &[primary] {
+      background-color: var(--primary);
+      color: var(--white-01);
+    }
+    &[secondary] {
+      background-color: var(--secondary);
+      color: var(--white-01);
+    }
+
+    &:disabled {
+      background-color: var(--gray-02);
+      color: var(--gray-01);
+      cursor: not-allowed;
     }
   }
 }

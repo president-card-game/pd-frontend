@@ -10,7 +10,7 @@ import { ICard } from '@models';
     @let card = this.card();
     @let isJoker = card.visibleValue == 'joker';
     
-    <div [ngClass]="['card', card.color]">
+    <div [ngClass]="['card', card.color]" data-testid="card">
       <div class="left"><ng-container class="left" [ngTemplateOutlet]="isJoker ? joker : commonExtremities"/></div>
       <div class="center"><ng-container class="center" [ngTemplateOutlet]="isJoker ? joker : commonCenter"/></div>
       <div class="right"><ng-container class="right" [ngTemplateOutlet]="isJoker ? joker : commonExtremities"/></div>

@@ -1,4 +1,7 @@
-$card-font-family: 'Space Grotesk', 'Roboto', sans-serif;
+$fonts: (
+  general: "'Poppins', sans-serif",
+  card: "'Space Grotesk','Roboto',sans-serif",
+);
 
 $colors: (
   primary: #005b4a,
@@ -8,6 +11,8 @@ $colors: (
   white-01: #ffffff,
   white-02: #eeeeee,
   gray-01: #d2d2d2,
+  gray-02: #b7b7b7,
+  yellow-01: #ffdd48,
   black: #17181f,
   green: #0b8770,
   yellow: #fdc461,
@@ -18,9 +23,11 @@ $colors: (
 );
 
 :root {
-  --card-font-family: #{$card-font-family};
-
   @each $name, $color in $colors {
     --#{$name}: #{$color};
+  }
+
+  @each $name, $font in $fonts {
+    --#{$name}-font: #{$font};
   }
 }
