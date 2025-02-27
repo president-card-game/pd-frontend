@@ -1,0 +1,65 @@
+@let game = gameService.game();
+@let me = gameService.me();
+@let sequence = gameService.sequence();
+
+<h1>Players</h1>
+
+@if(!game?.isStarted && sequence) {
+    @for (user of sequence; track $index) {
+        @if(user.id === me?.id) {
+            <span>You are {{ $index + 1 }} in sequence to play</span>
+    
+            <pd-deck-card [card]="user.card" />
+        }
+    }
+}
+
+@if(game && game.isStarted && me) {
+    @let isMyTurn = game.whoIsPlaying === me.id;
+    <span style="font-size: 25px;color: #fff">{{ isMyTurn ? "Is Your Time To Play" : "Your cards" }}</span>
+
+    @if (!selectJokerValue) {
+        @if (isMyTurn) {
+        <button (click)="playCard()">pass</button>
+        <button (click)="playCard(false)">jogar</button>
+
+        @if(selectedCards.length) {
+            <span style="font-size: 25px;color: #fff;margin: 20px;display: block;">Selected Cards</span>
+        }
+
+        @for (card of selectedCards; track $index) {
+            <pd-deck-card [card]="card.id | transformCardId" (click)="removeCard(card.id)"/>
+        }
+
+        <div style="margin-bottom: 20px;"></div>
+    } 
+    } @else {
+        <span style="font-size: 25px;color: #fff;margin: 20px;display: block;">Selected Cards</span>
+        
+        @for (card of cards; track $index) {
+            <pd-deck-card [card]="card" (click)="onJokerClick(card.id)"/>
+        }
+    }
+
+    <div style="display: flex; flex-wrap: wrap;">
+        @for (card of me.cards; track $index) {
+            <pd-deck-card [card]="card" (click)="selectCard(card.id)"/>
+        }
+    </div>
+    
+
+    @for (play of reversedLastPlays; track $index) {
+        <div style="margin-top: 50px;">
+            @if (!!play.cards) {
+                <span>{{ play.userId }} jogou</span>
+                <div style="display: flex;">
+                    @for (card of play.cards; track $index) {
+                        <pd-deck-card [card]="card" />
+                    }
+                </div>
+            } @else {
+                <span style="font-size: 25px;color: #fff">{{ play.userId }} pulou</span>
+            }
+        </div>
+    }
+}

@@ -42,7 +42,7 @@
       </aside>
 
       @if (roomsService.me()?.isHost) {
-        <button class="primary-button start-game" [disabled]="!allPlayersReady()" data-testid="start-game-button">
+        <button class="primary-button start-game" [disabled]="!allPlayersReady()" (click)="roomsService.startGame()" data-testid="start-game-button">
           <span class="material-symbols-outlined">
             start
           </span>

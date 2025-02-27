@@ -11,6 +11,7 @@
     font-family: var(--font-family);
     height: 170px;
     min-width: 100px;
+    max-width: 140px;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     border: 1px solid var(--white-02);

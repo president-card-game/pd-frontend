@@ -1,7 +1,8 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoomsService } from '../../services/rooms.service';
+import { RoomsService } from '../../services/rooms/rooms.service';
 import { TranslocoModule } from '@jsverse/transloco';
+import { SocketService } from '@shared';
 
 @Component({
   imports: [TranslocoModule],
@@ -13,6 +14,11 @@ export class RoomPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
 
   protected readonly roomsService = inject(RoomsService);
+  protected readonly socketService = inject(SocketService);
+
+  constructor() {
+    this.socketService.onEvent('gameStarted', () => this.router.navigate(['room', this.roomsService.currentRoomId(), 'game']));
+  }
 
   protected readonly allPlayersReady = computed(() => {
     const isHost = this.roomsService.me()?.isHost;

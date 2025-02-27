@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RoomsService } from '../../services/rooms.service';
+import { RoomsService } from '../../services/rooms/rooms.service';
 import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 @Component({

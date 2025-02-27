@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { getTranslocoTestingModule, getTranslocoTestingProviders } from '@shared';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { Room, User } from '../../interfaces';
-import { RoomsService } from '../../services/rooms.service';
+import { RoomsService } from '../../services/rooms/rooms.service';
 import { RoomPage } from './room.page';
 import { generateRoomsServiceMock } from '../../mocks';
 

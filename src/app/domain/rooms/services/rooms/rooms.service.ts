@@ -1,7 +1,7 @@
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { SocketService } from '@shared';
-import { Room, User } from '../interfaces';
+import { Room, User } from '../../interfaces/room.interface';
 
 @Injectable({ providedIn: 'root' })
 export class RoomsService {
@@ -33,7 +33,7 @@ export class RoomsService {
   }
 
   private onRoomCreated(room: Omit<Room, 'users'>) {
-    this.currentRoomId.set(room.id);
+    this.currentRoomId.set(room['id']);
     this.rooms.update((rooms) => [...rooms, { ...room, users: [] }]);
   }
 
@@ -82,5 +82,11 @@ export class RoomsService {
     this.socketService.removeListener('roomUsers');
 
     this.currentRoomId.set(null);
+  }
+
+  public startGame() {
+    if (!this.me()?.isHost) return;
+
+    this.socketService.emitMessage('startGame', this.currentRoomId());
   }
 }

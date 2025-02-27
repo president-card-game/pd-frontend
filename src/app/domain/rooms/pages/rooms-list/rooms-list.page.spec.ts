@@ -3,7 +3,7 @@ import { getTranslocoTestingModule, getTranslocoTestingProviders } from '@shared
 import { render, screen } from '@testing-library/angular';
 import { Room } from '../../interfaces';
 import { generateRoomsServiceMock } from '../../mocks';
-import { RoomsService } from '../../services/rooms.service';
+import { RoomsService } from '../../services/rooms/rooms.service';
 import { RoomsListPage } from './rooms-list.page';
 import { ComponentFixture } from '@angular/core/testing';
 

@@ -1,6 +1,6 @@
 import { getTranslocoTestingModule, getTranslocoTestingProviders } from '@shared';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { RoomsService } from '../../services/rooms.service';
+import { RoomsService } from '../../services/rooms/rooms.service';
 import { JoinPage } from './join.page';
 
 describe('JoinPage', () => {
