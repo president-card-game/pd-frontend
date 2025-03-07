@@ -1,5 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, input, OnInit, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ICard, isJoker, isValidGroup, isValidSequence } from '@shared';
 import { DeckCardComponent } from '../deck-card/deck-card.component';
 
@@ -21,10 +32,15 @@ export class CardsInHandComponent implements OnInit {
   private readonly handIndex = signal(0);
   private readonly maxCardsInHand = Math.floor(window.innerWidth / 42);
 
+  public signalSelectedCards: WritableSignal<ICard[]> = signal([]);
+  public readonly validSelectedCards = computed(() =>
+    this.currentHand().map((handCard) => this.signalSelectedCards().some((card) => card.id == handCard.id)),
+  );
+
   protected isBeforeNewPlay = false;
   protected isAfterNewPlay = false;
 
-  constructor(private readonly changeDetector: ChangeDetectorRef) {}
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.newTurn();
@@ -34,7 +50,7 @@ export class CardsInHandComponent implements OnInit {
     this.drawCard();
     this.selectedCards = [];
     this.validCardIds = this.getValidCardIds(this.currentHand(), this.currentPlay());
-    this.changeDetector.detectChanges();
+    this.changeDetectorRef.detectChanges();
   }
 
   public drawCard() {
@@ -83,6 +99,7 @@ export class CardsInHandComponent implements OnInit {
         : [...this.selectedCards, card];
     }
 
+    this.signalSelectedCards.set(this.selectedCards);
     this.validCardIds = this.getValidCardIds(this.currentHand(), this.currentPlay());
   }
 
@@ -199,9 +216,5 @@ export class CardsInHandComponent implements OnInit {
     });
 
     return validIds;
-  }
-
-  public isCardSelected(card: ICard): boolean {
-    return this.selectedCards.some((selected) => selected.id === card.id);
   }
 }

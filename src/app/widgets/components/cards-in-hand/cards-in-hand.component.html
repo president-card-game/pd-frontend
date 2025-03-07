@@ -2,13 +2,12 @@
   @for (card of selectedCards; track card.id; let index = $index) {
     <pd-deck-card
       [card]="card"
-      [class.selected]="isCardSelected(card)"
+      [class.selected]="validSelectedCards()[index]"
       (click)="selectCart(card)"
       (keydown.enter)="selectCart(card)"
       tabindex="1"
       data-testid="selected-cards"
-
-    ></pd-deck-card>
+    />
   }
 </div>
 <div class="deck">
@@ -18,13 +17,13 @@
       [card]="card"
       [ngStyle]="getCardStyle(index)"
       [ngClass]="{slide: isAfterNewPlay, slideOut: isBeforeNewPlay}"
-      [class.selected]="isCardSelected(card)"
+      [class.selected]="validSelectedCards()[index]"
       [class.disabled]="!isValid"
       (click)="isValid && selectCart(card)"
       (keydown.enter)="isValid && selectCart(card)"
       data-testid="deck-card-content"
       tabindex="0"
-    ></pd-deck-card>
+    />
   }
 </div>
 

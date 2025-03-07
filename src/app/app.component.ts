@@ -9,7 +9,6 @@ import { CardsInHandComponent } from '@widgets';
   selector: 'pd-root',
   template: `
     <router-outlet />
-    <!-- <div class="container"><pd-deck-card *ngFor="let card of cards" [card]="card"></pd-deck-card></div> -->
     <div>
       <pd-cards-in-hand [currentHand]="currentHand" [currentPlay]="currentPlay" (newPlay)="processNewPlay($event)">
       </pd-cards-in-hand>
