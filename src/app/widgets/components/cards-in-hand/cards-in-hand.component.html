@@ -1,0 +1,37 @@
+<div class="selected-cards">
+  @for (card of selectedCards; track card.id; let index = $index) {
+    <pd-deck-card
+      [card]="card"
+      [class.selected]="validSelectedCards()[index]"
+      (click)="selectCart(card)"
+      (keydown.enter)="selectCart(card)"
+      tabindex="1"
+      data-testid="selected-cards"
+    />
+  }
+</div>
+<div class="deck">
+  @for (card of cardsInHand; track card.id; let index = $index) {
+    @let isValid = validCardIds && validCardIds.has(card.id);
+    <pd-deck-card
+      [card]="card"
+      [ngStyle]="getCardStyle(index)"
+      [ngClass]="{slide: isAfterNewPlay, slideOut: isBeforeNewPlay}"
+      [class.selected]="validSelectedCards()[index]"
+      [class.disabled]="!isValid"
+      (click)="isValid && selectCart(card)"
+      (keydown.enter)="isValid && selectCart(card)"
+      data-testid="deck-card-content"
+      tabindex="0"
+    />
+  }
+</div>
+
+<div class="actions">
+  <div class="grid-2">
+    <button (click)="drawCard()" data-testid="draw-button" >Draw Card</button>
+    <button (click)="orderCards()" data-testid="order-button">Ordenar</button>
+  </div>
+  <button secondary (click)="skip()" data-testid="skip-button">Passar</button>
+  <button primary (click)="play()" data-testid="play-button" [disabled]="selectedCards.length !== currentPlay().length">Jogar</button>
+</div>
