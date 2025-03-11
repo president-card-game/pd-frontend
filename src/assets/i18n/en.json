@@ -15,5 +15,9 @@
   "marcarComoPronto": "Mark as ready",
   "desmarcarComoPronto": "Unmark as ready",
   "comecarJogo": "Start game",
-  "nomeDaSala": "Room name"
+  "nomeDaSala": "Room name",
+  "mostrarOutrtasCartas": "Show Other Cards",
+  "passar": "Pass Time",
+  "jogar": "Play",
+  "ordenar": "Sort"
 }

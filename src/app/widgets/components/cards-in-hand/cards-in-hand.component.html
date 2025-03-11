@@ -2,7 +2,6 @@
   @for (card of selectedCards; track card.id; let index = $index) {
     <pd-deck-card
       [card]="card"
-      [class.selected]="validSelectedCards()[index]"
       (click)="selectCart(card)"
       (keydown.enter)="selectCart(card)"
       tabindex="1"
@@ -16,7 +15,8 @@
     <pd-deck-card
       [card]="card"
       [ngStyle]="getCardStyle(index)"
-      [ngClass]="{slide: isAfterNewPlay, slideOut: isBeforeNewPlay}"
+      [class.slide]="isAfterNewPlay"
+      [class.slideOut]="isBeforeNewPlay"
       [class.selected]="validSelectedCards()[index]"
       [class.disabled]="!isValid"
       (click)="isValid && selectCart(card)"
@@ -27,11 +27,11 @@
   }
 </div>
 
-<div class="actions">
-  <div class="grid-2">
-    <button (click)="drawCard()" data-testid="draw-button" >Draw Card</button>
-    <button (click)="orderCards()" data-testid="order-button">Ordenar</button>
+<div class="actions" *transloco="let t"> 
+  <div class="grid-2" >
+    <button (click)="drawCard()" data-testid="draw-button" >{{t('mostrarOutrtasCartas')}}</button>
+    <button (click)="orderCards()" data-testid="order-button">{{t('ordenar')}}</button>
   </div>
-  <button secondary (click)="skip()" data-testid="skip-button">Passar</button>
-  <button primary (click)="play()" data-testid="play-button" [disabled]="selectedCards.length !== currentPlay().length">Jogar</button>
+  <button secondary (click)="skip()" data-testid="skip-button">{{t('passar')}}</button>
+  <button primary (click)="play()" data-testid="play-button" [disabled]="selectedCards.length !== currentPlay().length">{{t('jogar')}}</button>
 </div>
