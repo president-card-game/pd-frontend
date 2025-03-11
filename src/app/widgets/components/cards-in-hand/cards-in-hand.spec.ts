@@ -1,117 +1,26 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
 import { CardsInHandComponent } from './cards-in-hand.component';
 import { ICard } from '@models';
+import { CARDS_IN_HAND } from '@mocks';
+import { getTranslocoTestingModule, getTranslocoTestingProviders } from '@shared';
 
-const CARDS: ICard[] = [
-  {
-    id: 1,
-    visibleValue: 'A',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 1,
-  },
-  {
-    id: 2,
-    visibleValue: '2',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 2,
-  },
-  {
-    id: 3,
-    visibleValue: '3',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 3,
-  },
-  {
-    id: 4,
-    visibleValue: '4',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 4,
-  },
-  {
-    id: 5,
-    visibleValue: '5',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 5,
-  },
-  {
-    id: 6,
-    visibleValue: '6',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 6,
-  },
-  {
-    id: 7,
-    visibleValue: '7',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 7,
-  },
-  {
-    id: 33,
-    visibleValue: '7',
-    color: 'red',
-    suitIcon: '♥',
-    suitName: 'hearts',
-    rateValue: 7,
-  },
-  {
-    id: 8,
-    visibleValue: '8',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 8,
-  },
-  {
-    id: 9,
-    visibleValue: '9',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 9,
-  },
-  {
-    id: 10,
-    visibleValue: '10',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 10,
-  },
-  {
-    id: 32,
-    visibleValue: '6',
-    color: 'red',
-    suitIcon: '♥',
-    suitName: 'hearts',
-    rateValue: 6,
-  },
-];
+// Configuração padrão para os testes com Transloco
+const defaultRenderOptions = {
+  imports: [getTranslocoTestingModule()],
+  providers: [getTranslocoTestingProviders('cards-in-hand')],
+};
 
 describe('CardsInHandComponent', () => {
-  const mockCurrentHand = (): ICard[] => CARDS.slice(0, 10);
-  const mockCurrentPlay = (): ICard[] => [CARDS[1]];
-  const mockMultiPlaySequence = (): ICard[] => [CARDS[1], CARDS[2]];
-  const mockMultiPlayGroup = (): ICard[] => [CARDS[5], CARDS[11]];
+  const mockCurrentHand = (): ICard[] => CARDS_IN_HAND.slice(0, 10);
+  const mockCurrentPlay = (): ICard[] => [CARDS_IN_HAND[1]];
+  const mockMultiPlaySequence = (): ICard[] => [CARDS_IN_HAND[1], CARDS_IN_HAND[2]];
+  const mockMultiPlayGroup = (): ICard[] => [CARDS_IN_HAND[5], CARDS_IN_HAND[11]];
 
   beforeEach(() => {
     Object.defineProperty(window, 'innerWidth', {
       writable: true,
       configurable: true,
-      value: 375, //largura de um iphone SE
+      value: 375, // largura de um iPhone SE
     });
   });
 
@@ -121,13 +30,14 @@ describe('CardsInHandComponent', () => {
         currentHand: mockCurrentHand(),
         currentPlay: mockCurrentPlay(),
       },
+      ...defaultRenderOptions,
     });
 
     const deckCardContents = screen.getAllByTestId('deck-card-content');
     expect(deckCardContents.length).toBe(8);
 
     deckCardContents.forEach((content, index) => {
-      const card = CARDS[index];
+      const card = CARDS_IN_HAND[index];
       const hostEl = content.closest('pd-deck-card');
       if (!hostEl) {
         throw new Error('Card host element not found');
@@ -146,6 +56,7 @@ describe('CardsInHandComponent', () => {
         currentHand: mockCurrentHand(),
         currentPlay: mockCurrentPlay(),
       },
+      ...defaultRenderOptions,
     });
 
     const drawButton = await screen.findByTestId('draw-button');
@@ -164,6 +75,7 @@ describe('CardsInHandComponent', () => {
         currentHand: mockCurrentHand(),
         currentPlay: mockCurrentPlay(),
       },
+      ...defaultRenderOptions,
     });
 
     const orderButton = await screen.findByTestId('order-button');
@@ -171,7 +83,7 @@ describe('CardsInHandComponent', () => {
 
     await waitFor(() => {
       const deckCards = screen.getAllByTestId('deck-card-content');
-      expect(deckCards[0].textContent).toContain(CARDS[0].visibleValue);
+      expect(deckCards[0].textContent).toContain(CARDS_IN_HAND[0].visibleValue);
     });
   });
 
@@ -181,6 +93,7 @@ describe('CardsInHandComponent', () => {
         currentHand: mockCurrentHand(),
         currentPlay: mockCurrentPlay(),
       },
+      ...defaultRenderOptions,
     });
     const componentInstance = fixture.componentInstance;
     jest.spyOn(componentInstance.newPlay, 'emit');
@@ -191,11 +104,13 @@ describe('CardsInHandComponent', () => {
   });
 
   it('should emit the selected cards when clicking the "Play" button', async () => {
+    jest.useFakeTimers();
     const { fixture } = await render(CardsInHandComponent, {
       componentInputs: {
         currentHand: mockCurrentHand(),
         currentPlay: mockCurrentPlay(),
       },
+      ...defaultRenderOptions,
     });
     const componentInstance = fixture.componentInstance;
     jest.spyOn(componentInstance.newPlay, 'emit');
@@ -214,7 +129,12 @@ describe('CardsInHandComponent', () => {
     });
     fireEvent.click(playButton);
 
+    jest.advanceTimersByTime(980);
+    fixture.detectChanges();
+
     expect(componentInstance.newPlay.emit).toHaveBeenCalledWith(expect.arrayContaining([expect.objectContaining({ id: 3 })]));
+
+    jest.useRealTimers();
   });
 
   it('should update the selected cards container when a card is selected and deselected', async () => {
@@ -223,6 +143,7 @@ describe('CardsInHandComponent', () => {
         currentHand: mockCurrentHand(),
         currentPlay: mockCurrentPlay(),
       },
+      ...defaultRenderOptions,
     });
 
     expect(screen.queryAllByTestId('selected-cards').length).toBe(0);
@@ -249,12 +170,14 @@ describe('CardsInHandComponent', () => {
       expect(screen.queryAllByTestId('selected-cards').length).toBe(0);
     });
   });
+
   it('should allow selecting multiple cards and then deselect one', async () => {
     await render(CardsInHandComponent, {
       componentInputs: {
         currentHand: mockCurrentHand(),
         currentPlay: mockMultiPlaySequence(),
       },
+      ...defaultRenderOptions,
     });
 
     expect(screen.queryAllByTestId('selected-cards').length).toBe(0);
@@ -300,6 +223,7 @@ describe('CardsInHandComponent', () => {
         currentHand: mockCurrentHand(),
         currentPlay: mockMultiPlayGroup(),
       },
+      ...defaultRenderOptions,
     });
 
     expect(screen.queryAllByTestId('selected-cards').length).toBe(0);
@@ -316,7 +240,6 @@ describe('CardsInHandComponent', () => {
       if (!element) return false;
       return element.classList.contains('left') && content.trim().startsWith('7') && content.includes('♥');
     });
-
     const card7HeartsHost = card7HeartsElement.closest('pd-deck-card');
     if (!card7HeartsHost) throw new Error('Card host element for 7♥ not found');
     fireEvent.click(card7HeartsHost);
@@ -347,6 +270,7 @@ describe('CardsInHandComponent', () => {
         currentHand: mockCurrentHand(),
         currentPlay: mockCurrentPlay(),
       },
+      ...defaultRenderOptions,
     });
 
     const componentInstance = fixture.componentInstance;
@@ -356,10 +280,10 @@ describe('CardsInHandComponent', () => {
     fireEvent.click(drawButton);
 
     await waitFor(() => {
+      // Verifica o valor interno que controla o índice da mão
       const handIndexValue = componentInstance['handIndex'];
       console.log(handIndexValue());
-
-      expect(handIndexValue()).toBe(8); // Se espera 8 pois na função drawCard redefine o valor para o máximo de cartas que cabe na tela
+      expect(handIndexValue()).toBe(8);
     });
   });
 
@@ -369,6 +293,7 @@ describe('CardsInHandComponent', () => {
         currentHand: mockCurrentHand(),
         currentPlay: mockCurrentPlay(),
       },
+      ...defaultRenderOptions,
     });
 
     const componentInstance = fixture.componentInstance;
@@ -383,8 +308,7 @@ describe('CardsInHandComponent', () => {
     expect(deckCardContents.length).toBe(8);
 
     deckCardContents.forEach((content, index) => {
-      const card = CARDS[index];
-      console.log(card);
+      const card = CARDS_IN_HAND[index];
       const hostEl = content.closest('pd-deck-card');
       if (!hostEl) {
         throw new Error('Card host element not found');

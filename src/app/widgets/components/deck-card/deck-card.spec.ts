@@ -2,39 +2,13 @@ import { render, screen } from '@testing-library/angular';
 import { DeckCardComponent } from './deck-card.component';
 import { ICard } from '@models';
 import { CommonModule } from '@angular/common';
-
-const CARDS: ICard[] = [
-  {
-    id: 1,
-    visibleValue: 'A',
-    color: 'red',
-    suitIcon: '♦',
-    suitName: 'diamonds',
-    rateValue: 1,
-  },
-  {
-    id: 2,
-    visibleValue: 'joker',
-    color: 'black',
-    suitIcon: 'joker',
-    suitName: 'joker',
-    rateValue: 0,
-  },
-  {
-    id: 3,
-    visibleValue: 'K',
-    color: 'red',
-    suitIcon: '♥',
-    suitName: 'hearts',
-    rateValue: 13,
-  },
-];
+import { DECK_CARDS } from '@mocks';
 
 describe('DeckCardComponent', () => {
   let currentCard: ICard;
 
   beforeEach(async () => {
-    currentCard = CARDS.shift()!;
+    currentCard = DECK_CARDS.shift()!;
     await render(DeckCardComponent, {
       componentInputs: { card: currentCard },
       imports: [CommonModule],

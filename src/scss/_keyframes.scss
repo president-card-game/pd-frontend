@@ -1,0 +1,31 @@
+@keyframes slide {
+  from {
+    margin-left: -100px;
+  }
+  to {
+    margin-left: -70px;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    margin-left: -70px;
+  }
+  to {
+    margin-left: -100px;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
