@@ -15,5 +15,9 @@
   "marcarComoPronto": "Marcar como pronto",
   "desmarcarComoPronto": "Desmarcar como pronto",
   "comecarJogo": "Começar o jogo",
-  "nomeDaSala": "Nome da sala"
+  "nomeDaSala": "Nome da sala",
+  "mostrarOutrtasCartas": "Mostrar Outras Cartas",
+  "passar": "Passar",
+  "jogar": "Jogar",
+  "ordenar": "Ordenar"
 }
