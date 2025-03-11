@@ -1,25 +1,14 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  computed,
-  inject,
-  input,
-  OnInit,
-  output,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, computed, input, OnInit, output, signal, WritableSignal } from '@angular/core';
 import { ICard, isJoker, isValidGroup, isValidSequence } from '@shared';
 import { DeckCardComponent } from '../deck-card/deck-card.component';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
   selector: 'pd-cards-in-hand',
-  imports: [CommonModule, DeckCardComponent],
+  imports: [CommonModule, DeckCardComponent, TranslocoDirective],
   templateUrl: './cards-in-hand.component.html',
   styleUrl: './cards-in-hand.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardsInHandComponent implements OnInit {
   public readonly currentHand = input.required<ICard[]>();
@@ -33,14 +22,13 @@ export class CardsInHandComponent implements OnInit {
   private readonly maxCardsInHand = Math.floor(window.innerWidth / 42);
 
   public signalSelectedCards: WritableSignal<ICard[]> = signal([]);
-  public readonly validSelectedCards = computed(() =>
-    this.currentHand().map((handCard) => this.signalSelectedCards().some((card) => card.id == handCard.id)),
-  );
+  public readonly validSelectedCards = computed(() => {
+    const cardsToValid = this.currentHand().slice(this.handIndex() - this.maxCardsInHand, this.handIndex());
+    return cardsToValid.map((handCard) => this.signalSelectedCards().some((card) => card.id == handCard.id));
+  });
 
   protected isBeforeNewPlay = false;
   protected isAfterNewPlay = false;
-
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.newTurn();
@@ -49,8 +37,8 @@ export class CardsInHandComponent implements OnInit {
   private newTurn() {
     this.drawCard();
     this.selectedCards = [];
+    this.signalSelectedCards.set([]);
     this.validCardIds = this.getValidCardIds(this.currentHand(), this.currentPlay());
-    this.changeDetectorRef.detectChanges();
   }
 
   public drawCard() {
@@ -75,16 +63,16 @@ export class CardsInHandComponent implements OnInit {
   }
 
   public play() {
-    this.handIndex.set(0);
     this.isBeforeNewPlay = true;
-    this.newPlay.emit(this.selectedCards);
 
     //simulando requisição
+    setTimeout(() => this.newPlay.emit(this.selectedCards), 980);
     setTimeout(() => {
+      this.handIndex.set(0);
       this.isAfterNewPlay = true;
       this.isBeforeNewPlay = false;
       this.newTurn();
-    }, 800);
+    }, 1000);
   }
 
   public selectCart(card: ICard) {

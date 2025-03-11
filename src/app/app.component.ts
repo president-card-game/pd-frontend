@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DECK, ICard } from '@shared';
 import { CardsInHandComponent } from '@widgets';
@@ -47,20 +47,20 @@ export class AppComponent implements OnInit {
   private dealHand() {
     this.currentPlay = [
       {
-        id: 2,
-        visibleValue: '2',
+        id: 8,
+        visibleValue: '8',
         color: 'red',
         suitIcon: '♦',
         suitName: 'diamonds',
-        rateValue: 2,
+        rateValue: 8,
       },
       {
-        id: 3,
-        visibleValue: '3',
+        id: 9,
+        visibleValue: '9',
         color: 'red',
         suitIcon: '♦',
         suitName: 'diamonds',
-        rateValue: 3,
+        rateValue: 9,
       },
     ];
 

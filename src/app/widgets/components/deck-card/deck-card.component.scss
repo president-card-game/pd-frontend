@@ -1,3 +1,5 @@
+@use 'keyframes' as *;
+
 :host {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -79,23 +81,5 @@
 
   &.slideOut {
     animation: slideOut 1s;
-  }
-}
-
-@keyframes slide {
-  from {
-    margin-left: -100px;
-  }
-  to {
-    margin-left: -70px;
-  }
-}
-
-@keyframes slideOut {
-  from {
-    margin-left: -70px;
-  }
-  to {
-    margin-left: -100px;
   }
 }
